@@ -18,7 +18,10 @@ knit        : slidify::knit2slides
 
 ### Why programming?
 - I deal with long term datasets based on annual data collection
-- A lot of what is needed is 'adding a new dot each year to the end of the graph'
+- A lot of what is needed is 'adding a new dot each year to the end of the graph
+- Many people work on the same data, each may catch different errors
+- Scripts work on the raw data - always up-to-date!
+
 ---
 ## Overview
 ### Why learn programming?  
@@ -220,8 +223,27 @@ mydf<-data.frame(ColA,ColB)
 aggregate(ColB~ColA, data=mydf, FUN=mean)
 ```
 
----
-## A note on data organization... maybe, might be week 2...
+--- &twocol
+## A note on data organization...
++ Will be times need to rethink how to organize data from how you may have learned in the past
+*** =left
+Excel style...
+```{r, echo=FALSE, results='asis'}
+a<-1:5
+b<-6:10
+table1<-xtable::xtable(data.frame(a,b))
+print(table1, type='html')
+```
+
+*** =right
+Compared to...
+```{r, echo=FALSE, results='asis'}
+Level<-rep(c('a', 'b'), each=5)
+Value<-1:10
+table2<-xtable::xtable(data.frame(Level,Value))
+print(table2, type='html')
+```
+
 
 ---
 ## How We'll Work

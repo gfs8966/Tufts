@@ -10,6 +10,19 @@ widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
 --- 
+## Who is Jeremy?
+### Professional CV
+- Graduated from Tufts' lab in 2012
+- Prior to that I worked primarily in fisheries policy
+- Now I work for MNRF at the Glenora Fisheries Station as an Assessment Biologist
+
+### Why programming?
+- I deal with long term datasets based on annual data collection
+- A lot of what is needed is 'adding a new dot each year to the end of the graph
+- Many people work on the same data, each may catch different errors
+- Scripts work on the raw data - always up-to-date!
+
+---
 ## Overview
 ### Why learn programming?  
 Being able to efficeintly manage and manipulate data allows you to inspect the data for errors, anomalies and interesting questions.  Once you know the right question to ask, the analysis of data is just stats/math.  
@@ -239,7 +252,7 @@ CUE
 ```
 Or a little more nicely presented...
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Tue Oct 14 20:51:03 2014 -->
+<!-- Sun Oct 19 18:14:08 2014 -->
 <table border=1>
 <tr> <th>  </th> <th> lakeA </th> <th> lakeB </th>  </tr>
   <tr> <td align="right"> perch </td> <td align="right"> 5.00 </td> <td align="right"> 5.00 </td> </tr>
@@ -265,6 +278,41 @@ aggregate(ColB~ColA, data=mydf, FUN=mean)
 ## 2    B 66.4
 ## 3    C 55.0
 ```
+
+--- &twocol
+## A note on data organization...
++ Will be times need to rethink how to organize data from how you may have learned in the past
+*** =left
+Excel style...
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+<!-- Sun Oct 19 18:24:15 2014 -->
+<table border=1>
+<tr> <th>  </th> <th> a </th> <th> b </th>  </tr>
+  <tr> <td align="right"> 1 </td> <td align="right">   1 </td> <td align="right">   6 </td> </tr>
+  <tr> <td align="right"> 2 </td> <td align="right">   2 </td> <td align="right">   7 </td> </tr>
+  <tr> <td align="right"> 3 </td> <td align="right">   3 </td> <td align="right">   8 </td> </tr>
+  <tr> <td align="right"> 4 </td> <td align="right">   4 </td> <td align="right">   9 </td> </tr>
+  <tr> <td align="right"> 5 </td> <td align="right">   5 </td> <td align="right">  10 </td> </tr>
+   </table>
+
+*** =right
+Compared to...
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+<!-- Sun Oct 19 18:24:15 2014 -->
+<table border=1>
+<tr> <th>  </th> <th> Level </th> <th> Value </th>  </tr>
+  <tr> <td align="right"> 1 </td> <td> a </td> <td align="right">   1 </td> </tr>
+  <tr> <td align="right"> 2 </td> <td> a </td> <td align="right">   2 </td> </tr>
+  <tr> <td align="right"> 3 </td> <td> a </td> <td align="right">   3 </td> </tr>
+  <tr> <td align="right"> 4 </td> <td> a </td> <td align="right">   4 </td> </tr>
+  <tr> <td align="right"> 5 </td> <td> a </td> <td align="right">   5 </td> </tr>
+  <tr> <td align="right"> 6 </td> <td> b </td> <td align="right">   6 </td> </tr>
+  <tr> <td align="right"> 7 </td> <td> b </td> <td align="right">   7 </td> </tr>
+  <tr> <td align="right"> 8 </td> <td> b </td> <td align="right">   8 </td> </tr>
+  <tr> <td align="right"> 9 </td> <td> b </td> <td align="right">   9 </td> </tr>
+  <tr> <td align="right"> 10 </td> <td> b </td> <td align="right">  10 </td> </tr>
+   </table>
+
 
 ---
 ## How We'll Work
