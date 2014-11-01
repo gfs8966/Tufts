@@ -28,90 +28,122 @@ knit        : slidify::knit2slides
 - A vector is a collection of 'things'
 - A vector has properties
 
-```
-## [1] "integer"
-```
+```r
+a<-c(1:10)
+b<-letters[1:10]
 
-```
-## [1] "character"
-```
-
-```
-##  int [1:10] 1 2 3 4 5 6 7 8 9 10
-```
-
-```
-##  chr [1:10] "a" "b" "c" "d" "e" "f" "g" "h" "i" ...
-```
-
-```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    1.00    3.25    5.50    5.50    7.75   10.00
-```
-
-```
-##    Length     Class      Mode 
-##        10 character character
-```
-
-```
-## [1] 10
-```
-
-```
-## [1] 10
+class(a); class(b)
+str(a); str(b)
+summary(a) 
+summary(b)
+length(a); length(b)
 ```
 
 ---
 ## Numeric type vectors
 Can preform additional operations on vectors with 'numeric' contents
 
-```
-## [1] 5.5
-```
-
-```
-## [1] 1
-```
-
-```
-## [1] 10
-```
-
-```
-##    0%   25%   50%   75%  100% 
-##  1.00  3.25  5.50  7.75 10.00
-```
-
-```
-##   0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 100% 
-##  1.0  1.9  2.8  3.7  4.6  5.5  6.4  7.3  8.2  9.1 10.0
+```r
+mean(a)
+min(a)
+max(a)
+quantile(a)
+quantile(a, probs=seq(0,1,0.1))
 ```
 
 ---
 ## Watch out for NAs
 ### NA are not known, NULL is not there.
 
-```
-## [1] NA
-```
-
-```
-## [1] 5.5
-```
-
-```
-## [1] TRUE
-```
-
-```
-## [1] 5.5
+```r
+c<-c(1:5,NA,6:10)
+mean(c)
+mean(c, na.rm=T)
+anyNA(c)
+d<-c(1:5, NULL, 6:10)
+mean(d)
 ```
 
 ---
 ## Other data types
-# Matrix
-# Array
-# Dataframe
+### - Matrix
+### - Array
+### - Dataframe
 
 
+We'll focus on data organized as dataframes. Let's look at a couple...
+
+---
+## rep
+Two common usages depending on how you want the data to be organized.
+
+```r
+rep(c('x', 'y'), 3)
+```
+
+```
+## [1] "x" "y" "x" "y" "x" "y"
+```
+
+```r
+rep(c('x','y'), each=3)
+```
+
+```
+## [1] "x" "x" "x" "y" "y" "y"
+```
+
+---
+## Factors
+### Factors are 'groups' that are used for analytical purposes
+Convert text or numbers to factors by using `as.factor`
+`read.csv` defualt is to convert text to factors, overide by using optional command `stringsAsFactors=F`; `as.is` or `colClasses`
+
+Useful as categorical variable analysis like `table`
+
+Use `levels(mydf$myfactor)` to recall all factor levels
+
+---
+## Accessing files
+### It's possible to read, create and delete files, folders and figures directly from R
+Here's some handy ones
+
+```r
+dir()
+getwd()
+setwd()
+read.csv()
+file.exists()
+```
+
+---
+## Saving figures
+### Most desirable file type will vary depending on usage 
+pdf is useful for general sharing purposes
+
+```r
+pdf('MyFileName.pdf')
+# some code to make a figure
+dev.off() # used to close the file
+```
+
+emf look nice in documents and presentations and keep their properties when resized but most default picture viewers won't open them
+
+```r
+install.packages('devEMF')
+library('devEMF')
+emf('file.emf')
+# plot a figure
+dev.off()
+```
+
+---
+
+new slide
+
+
+---
+## Some other useful stuff
+`?function` gives the help file
+`args(function)` gives the functions arguments
+`function` gives the function's formula

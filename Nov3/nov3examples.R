@@ -41,3 +41,48 @@ tl<-round(runif(10, min=250, max=500),0)
 fish.data<-data.frame(spc, tl)
 fish.data
 str(fish.data)
+
+# default is to assign as text as 'Factors', why is this important?
+barplot(fish.data$tl, col=as.factor(spc))
+plot(tl~spc, fish.data)
+table(fish.data$spc)
+with(fish.data, by(tl, spc, mean)) #same as writing by(fish.data$tl, fish.data$spc, mean)
+tapply(fish.data$tl, fish.data$spc, mean) # we'll deal with the apply family in more detail later
+
+###### 
+# Reading data
+getwd()
+setwd('/home/jer/Tufts')
+dir()
+dir.create('StatsClass')
+dir()
+# move lengthdata.csv to this new directory
+len.dat<-read.csv('StatsClass/lengthdata.csv')
+str(len.dat)
+# maybe we want to convert
+len.dat$SPC<-as.factor(len.dat$SPC)
+len.dat$SEX<-as.factor(len.dat$SEX)
+
+# Figures
+hist(len.dat$FLEN)
+barplot(table(len.dat$SPC))
+
+pdf('StatsClass/myhist.pdf')
+hist(len.dat$FLEN)
+dev.off()
+
+pdf('StatsClass/mybar.pdf')
+barplot(table(len.dat$SPC))
+dev.off()
+
+pdf('StatsClass/allfigs.pdf')
+hist(len.dat$FLEN)
+barplot(table(len.dat$SPC))
+dev.off()
+
+mysummary<-with(len.dat, tapply(FLEN, SPC, length)) # length = number of obs.
+mysummary
+as.data.frame(mysummary)
+
+write.csv(as.data.frame(mysummary), 'StatsClass/mysummary.csv', row.names=T)
+dir('StatsClass')

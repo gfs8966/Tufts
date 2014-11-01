@@ -13,15 +13,28 @@ knit        : slidify::knit2slides
 
 ## Outline
 1. R Basics
-  a. Data types
-  b. Packages
+  a. Packages
+  b. Data types
 2. Work directory/Read & Write Files
 3. Working with data
-  - Merge
-  - Subsetting
   - Operators
+  - Subsetting
+  - Merge
 4. Some useful stuff
 
+
+---
+## Packages
+### Packages are just a collection of custom functions
+```{r, eval=FALSE}
+install.packages('ggplot2')
+library(ggplot2) # or require()
+```
+If the package has already been installed you can call a function without loading the library like this:
+```{r, eval=FALSE}
+devEMF::emf('myfile.emf')
+foreign::read.dbf('myfile.dbf')
+```
 
 ---
 ## Vectors
@@ -63,9 +76,10 @@ mean(d)
 
 ---
 ## Other data types
-### Matrix
-### Array
-### Dataframe
+### - Matrix
+### - Array
+### - Dataframe
+
 
 We'll focus on data organized as dataframes. Let's look at a couple...
 
@@ -76,4 +90,59 @@ Two common usages depending on how you want the data to be organized.
 rep(c('x', 'y'), 3)
 rep(c('x','y'), each=3)
 ```
+
+---
+## Factors
+### Factors are 'groups' that are used for analytical purposes
+Convert text or numbers to factors by using `as.factor`
+`read.csv` defualt is to convert text to factors, overide by using optional command `stringsAsFactors=F`; `as.is` or `colClasses`
+
+Useful as categorical variable analysis like `table`
+
+Use `levels(mydf$myfactor)` to recall all factor levels
+
+---
+## Accessing files
+### It's possible to read, create and delete files, folders and figures directly from R
+Here's some handy ones
+```{r, eval=FALSE}
+dir()
+getwd()
+setwd()
+read.csv()
+file.exists()
+```
+
+---
+## Saving figures
+### Most desirable file type will vary depending on usage 
+pdf is useful for general sharing purposes
+```{r, eval=FALSE}
+pdf('MyFileName.pdf')
+# some code to make a figure
+dev.off() # used to close the file
+```
+
+emf look nice in documents and presentations and keep their properties when resized but most default picture viewers won't open them
+```{r, eval=FALSE}
+install.packages('devEMF')
+library('devEMF')
+emf('file.emf')
+# plot a figure
+dev.off()
+```
+
+---
+## Operators
+new slide
+
+
+---
+## Subsetting
+
+---
+## Some other useful stuff
+- `?function` gives the help file 
+- `args(function)` gives the functions arguments 
+- `function` gives the function's formula 
 

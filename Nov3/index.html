@@ -75,30 +75,14 @@ b. Packages</li>
 <li>A vector has properties</li>
 </ul>
 
-<pre><code>## [1] &quot;integer&quot;
-</code></pre>
+<pre><code class="r">a&lt;-c(1:10)
+b&lt;-letters[1:10]
 
-<pre><code>## [1] &quot;character&quot;
-</code></pre>
-
-<pre><code>##  int [1:10] 1 2 3 4 5 6 7 8 9 10
-</code></pre>
-
-<pre><code>##  chr [1:10] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; ...
-</code></pre>
-
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    1.00    3.25    5.50    5.50    7.75   10.00
-</code></pre>
-
-<pre><code>##    Length     Class      Mode 
-##        10 character character
-</code></pre>
-
-<pre><code>## [1] 10
-</code></pre>
-
-<pre><code>## [1] 10
+class(a); class(b)
+str(a); str(b)
+summary(a) 
+summary(b)
+length(a); length(b)
 </code></pre>
 
   </article>
@@ -112,21 +96,11 @@ b. Packages</li>
   <article data-timings="">
     <p>Can preform additional operations on vectors with &#39;numeric&#39; contents</p>
 
-<pre><code>## [1] 5.5
-</code></pre>
-
-<pre><code>## [1] 1
-</code></pre>
-
-<pre><code>## [1] 10
-</code></pre>
-
-<pre><code>##    0%   25%   50%   75%  100% 
-##  1.00  3.25  5.50  7.75 10.00
-</code></pre>
-
-<pre><code>##   0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 100% 
-##  1.0  1.9  2.8  3.7  4.6  5.5  6.4  7.3  8.2  9.1 10.0
+<pre><code class="r">mean(a)
+min(a)
+max(a)
+quantile(a)
+quantile(a, probs=seq(0,1,0.1))
 </code></pre>
 
   </article>
@@ -140,16 +114,12 @@ b. Packages</li>
   <article data-timings="">
     <h3>NA are not known, NULL is not there.</h3>
 
-<pre><code>## [1] NA
-</code></pre>
-
-<pre><code>## [1] 5.5
-</code></pre>
-
-<pre><code>## [1] TRUE
-</code></pre>
-
-<pre><code>## [1] 5.5
+<pre><code class="r">c&lt;-c(1:5,NA,6:10)
+mean(c)
+mean(c, na.rm=T)
+anyNA(c)
+d&lt;-c(1:5, NULL, 6:10)
+mean(d)
 </code></pre>
 
   </article>
@@ -161,11 +131,122 @@ b. Packages</li>
     <h2>Other data types</h2>
   </hgroup>
   <article data-timings="">
-    <h1>Matrix</h1>
+    <h3>- Matrix</h3>
 
-<h1>Array</h1>
+<h3>- Array</h3>
 
-<h1>Dataframe</h1>
+<h3>- Dataframe</h3>
+
+<p>We&#39;ll focus on data organized as dataframes. Let&#39;s look at a couple...</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>rep</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Two common usages depending on how you want the data to be organized.</p>
+
+<pre><code class="r">rep(c(&#39;x&#39;, &#39;y&#39;), 3)
+</code></pre>
+
+<pre><code>## [1] &quot;x&quot; &quot;y&quot; &quot;x&quot; &quot;y&quot; &quot;x&quot; &quot;y&quot;
+</code></pre>
+
+<pre><code class="r">rep(c(&#39;x&#39;,&#39;y&#39;), each=3)
+</code></pre>
+
+<pre><code>## [1] &quot;x&quot; &quot;x&quot; &quot;x&quot; &quot;y&quot; &quot;y&quot; &quot;y&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Factors</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Factors are &#39;groups&#39; that are used for analytical purposes</h3>
+
+<p>Convert text or numbers to factors by using <code>as.factor</code>
+<code>read.csv</code> defualt is to convert text to factors, overide by using optional command <code>stringsAsFactors=F</code>; <code>as.is</code> or <code>colClasses</code></p>
+
+<p>Useful as categorical variable analysis like <code>table</code></p>
+
+<p>Use <code>levels(mydf$myfactor)</code> to recall all factor levels</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Accessing files</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>It&#39;s possible to read, create and delete files, folders and figures directly from R</h3>
+
+<p>Here&#39;s some handy ones</p>
+
+<pre><code class="r">dir()
+getwd()
+setwd()
+read.csv()
+file.exists()
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Saving figures</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Most desirable file type will vary depending on usage</h3>
+
+<p>pdf is useful for general sharing purposes</p>
+
+<pre><code class="r">pdf(&#39;MyFileName.pdf&#39;)
+# some code to make a figure
+dev.off() # used to close the file
+</code></pre>
+
+<p>emf look nice in documents and presentations and keep their properties when resized but most default picture viewers won&#39;t open them</p>
+
+<pre><code class="r">install.packages(&#39;devEMF&#39;)
+library(&#39;devEMF&#39;)
+emf(&#39;file.emf&#39;)
+# plot a figure
+dev.off()
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <article data-timings="">
+    <p>new slide</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Some other useful stuff</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><code>?function</code> gives the help file
+<code>args(function)</code> gives the functions arguments
+<code>function</code> gives the function&#39;s formula</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -203,6 +284,42 @@ b. Packages</li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=5 title='Other data types'>
          5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='rep'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Factors'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Accessing files'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Saving figures'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title=''>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Some other useful stuff'>
+         11
       </a>
     </li>
   </ul>
