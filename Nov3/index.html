@@ -48,15 +48,15 @@
   <article data-timings="">
     <ol>
 <li>R Basics
-a. Data types
-b. Packages</li>
+a. Packages
+b. Data types</li>
 <li>Work directory/Read &amp; Write Files</li>
 <li>Working with data
 
 <ul>
-<li>Merge</li>
-<li>Subsetting</li>
 <li>Operators</li>
+<li>Subsetting</li>
+<li>Merge</li>
 </ul></li>
 <li>Some useful stuff</li>
 </ol>
@@ -66,6 +66,27 @@ b. Packages</li>
 </slide>
 
 <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Packages</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Packages are just a collection of custom functions</h3>
+
+<pre><code class="r">install.packages(&#39;ggplot2&#39;)
+library(ggplot2) # or require()
+</code></pre>
+
+<p>If the package has already been installed you can call a function without loading the library like this:</p>
+
+<pre><code class="r">devEMF::emf(&#39;myfile.emf&#39;)
+foreign::read.dbf(&#39;myfile.dbf&#39;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Vectors</h2>
   </hgroup>
@@ -89,7 +110,7 @@ length(a); length(b)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Numeric type vectors</h2>
   </hgroup>
@@ -107,7 +128,7 @@ quantile(a, probs=seq(0,1,0.1))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Watch out for NAs</h2>
   </hgroup>
@@ -126,7 +147,7 @@ mean(d)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Other data types</h2>
   </hgroup>
@@ -143,7 +164,7 @@ mean(d)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>rep</h2>
   </hgroup>
@@ -166,7 +187,7 @@ mean(d)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Factors</h2>
   </hgroup>
@@ -184,7 +205,7 @@ mean(d)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Accessing files</h2>
   </hgroup>
@@ -204,7 +225,7 @@ file.exists()
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Saving figures</h2>
   </hgroup>
@@ -231,22 +252,78 @@ dev.off()
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Saving text</h2>
+  </hgroup>
   <article data-timings="">
-    <p>new slide</p>
+    <h3>Just like <code>read.csv</code> is used to read a csv file, <code>write.csv</code> is used to write a new csv</h3>
+
+<pre><code class="r">write.csv(a, &#39;StatsClass/a.csv&#39;, row.names=F)
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Operators</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Subsetting and Logicals (T/F) require <code>Operators</code></h3>
+
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+
+<!-- Sat Nov  1 18:49:40 2014 -->
+
+<table border=1>
+<tr> <th>  </th> <th> Symbol </th> <th> English </th>  </tr>
+  <tr> <td align="right"> 1 </td> <td> == </td> <td> exactly equal </td> </tr>
+  <tr> <td align="right"> 2 </td> <td> &gt;,&lt; </td> <td> greater/less than </td> </tr>
+  <tr> <td align="right"> 3 </td> <td> &gt;=,&lt;= </td> <td> greater/less than or equal to </td> </tr>
+  <tr> <td align="right"> 4 </td> <td> ! </td> <td> NOT </td> </tr>
+  <tr> <td align="right"> 5 </td> <td> != </td> <td> NOT equal </td> </tr>
+  <tr> <td align="right"> 6 </td> <td> &amp; </td> <td> AND </td> </tr>
+  <tr> <td align="right"> 7 </td> <td> | </td> <td> OR </td> </tr>
+   </table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Subsetting</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Often we are interested in looking at only certain parts of the data based on some conditions</h3>
+
+<p>There are two general methods:</p>
+
+<pre><code class="r">subset(a, a&gt;8)
+a[a&gt;8]
+</code></pre>
+
+<p>When using <code>[]</code> method, be aware of dimensions</p>
+
+<pre><code class="r">len.dat[len.dat$FLEN&lt;500,c(2,3)]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Some other useful stuff</h2>
   </hgroup>
   <article data-timings="">
-    <p><code>?function</code> gives the help file
-<code>args(function)</code> gives the functions arguments
-<code>function</code> gives the function&#39;s formula</p>
+    <ul>
+<li><code>?function</code> gives the help file </li>
+<li><code>args(function)</code> gives the functions arguments </li>
+<li><code>function</code> gives the function&#39;s formula </li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -264,62 +341,80 @@ dev.off()
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Vectors'>
+        data-slide=2 title='Packages'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Numeric type vectors'>
+        data-slide=3 title='Vectors'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Watch out for NAs'>
+        data-slide=4 title='Numeric type vectors'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Other data types'>
+        data-slide=5 title='Watch out for NAs'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='rep'>
+        data-slide=6 title='Other data types'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Factors'>
+        data-slide=7 title='rep'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Accessing files'>
+        data-slide=8 title='Factors'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='Saving figures'>
+        data-slide=9 title='Accessing files'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title=''>
+        data-slide=10 title='Saving figures'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='Some other useful stuff'>
+        data-slide=11 title='Saving text'>
          11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Operators'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Subsetting'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Some other useful stuff'>
+         14
       </a>
     </li>
   </ul>

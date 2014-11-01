@@ -13,15 +13,30 @@ knit        : slidify::knit2slides
 
 ## Outline
 1. R Basics
-  a. Data types
-  b. Packages
+  a. Packages
+  b. Data types
 2. Work directory/Read & Write Files
 3. Working with data
-  - Merge
-  - Subsetting
   - Operators
+  - Subsetting
+  - Merge
 4. Some useful stuff
 
+
+---
+## Packages
+### Packages are just a collection of custom functions
+
+```r
+install.packages('ggplot2')
+library(ggplot2) # or require()
+```
+If the package has already been installed you can call a function without loading the library like this:
+
+```r
+devEMF::emf('myfile.emf')
+foreign::read.dbf('myfile.dbf')
+```
 
 ---
 ## Vectors
@@ -138,12 +153,49 @@ dev.off()
 ```
 
 ---
+## Saving text
+### Just like `read.csv` is used to read a csv file, `write.csv` is used to write a new csv
 
-new slide
 
+```r
+write.csv(a, 'StatsClass/a.csv', row.names=F)
+```
+
+---
+## Operators
+### Subsetting and Logicals (T/F) require `Operators`
+
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+<!-- Sat Nov  1 18:49:40 2014 -->
+<table border=1>
+<tr> <th>  </th> <th> Symbol </th> <th> English </th>  </tr>
+  <tr> <td align="right"> 1 </td> <td> == </td> <td> exactly equal </td> </tr>
+  <tr> <td align="right"> 2 </td> <td> &gt;,&lt; </td> <td> greater/less than </td> </tr>
+  <tr> <td align="right"> 3 </td> <td> &gt;=,&lt;= </td> <td> greater/less than or equal to </td> </tr>
+  <tr> <td align="right"> 4 </td> <td> ! </td> <td> NOT </td> </tr>
+  <tr> <td align="right"> 5 </td> <td> != </td> <td> NOT equal </td> </tr>
+  <tr> <td align="right"> 6 </td> <td> &amp; </td> <td> AND </td> </tr>
+  <tr> <td align="right"> 7 </td> <td> | </td> <td> OR </td> </tr>
+   </table>
+
+---
+## Subsetting
+### Often we are interested in looking at only certain parts of the data based on some conditions
+There are two general methods:
+
+```r
+subset(a, a>8)
+a[a>8]
+```
+When using `[]` method, be aware of dimensions
+
+```r
+len.dat[len.dat$FLEN<500,c(2,3)]
+```
 
 ---
 ## Some other useful stuff
-`?function` gives the help file
-`args(function)` gives the functions arguments
-`function` gives the function's formula
+- `?function` gives the help file 
+- `args(function)` gives the functions arguments 
+- `function` gives the function's formula 
+

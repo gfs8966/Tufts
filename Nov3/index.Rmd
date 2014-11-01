@@ -133,12 +133,36 @@ dev.off()
 ```
 
 ---
-## Operators
-new slide
+## Saving text
+### Just like `read.csv` is used to read a csv file, `write.csv` is used to write a new csv
 
+```{r, eval=FALSE}
+write.csv(a, 'StatsClass/a.csv', row.names=F)
+```
+
+---
+## Operators
+### Subsetting and Logicals (T/F) require `Operators`
+
+```{r, echo=FALSE, results='asis'}
+Symbol=c('==', '>,<', '>=,<=', '!', '!=', '&', '|')
+English=c('exactly equal', 'greater/less than', 'greater/less than or equal to', 'NOT', 'NOT equal', 'AND', 'OR')
+mytable<-xtable::xtable(data.frame(Symbol, English))
+print(mytable, type='html')
+```
 
 ---
 ## Subsetting
+### Often we are interested in looking at only certain parts of the data based on some conditions
+There are two general methods:
+```{r, eval=FALSE}
+subset(a, a>8)
+a[a>8]
+```
+When using `[]` method, be aware of dimensions
+```{r, eval=FALSE}
+len.dat[len.dat$FLEN<500,c(2,3)]
+```
 
 ---
 ## Some other useful stuff
