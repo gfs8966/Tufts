@@ -27,53 +27,91 @@ knit        : slidify::knit2slides
 ## Vectors
 - A vector is a collection of 'things'
 - A vector has properties
-```{r, eval=FALSE}
-a<-c(1:10)
-b<-letters[1:10]
 
-class(a); class(b)
-str(a); str(b)
-summary(a) 
-summary(b)
-length(a); length(b)
+```
+## [1] "integer"
+```
+
+```
+## [1] "character"
+```
+
+```
+##  int [1:10] 1 2 3 4 5 6 7 8 9 10
+```
+
+```
+##  chr [1:10] "a" "b" "c" "d" "e" "f" "g" "h" "i" ...
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    3.25    5.50    5.50    7.75   10.00
+```
+
+```
+##    Length     Class      Mode 
+##        10 character character
+```
+
+```
+## [1] 10
+```
+
+```
+## [1] 10
 ```
 
 ---
 ## Numeric type vectors
 Can preform additional operations on vectors with 'numeric' contents
-```{r, eval=FALSE}
-mean(a)
-min(a)
-max(a)
-quantile(a)
-quantile(a, probs=seq(0,1,0.1))
+
+```
+## [1] 5.5
+```
+
+```
+## [1] 1
+```
+
+```
+## [1] 10
+```
+
+```
+##    0%   25%   50%   75%  100% 
+##  1.00  3.25  5.50  7.75 10.00
+```
+
+```
+##   0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 100% 
+##  1.0  1.9  2.8  3.7  4.6  5.5  6.4  7.3  8.2  9.1 10.0
 ```
 
 ---
 ## Watch out for NAs
 ### NA are not known, NULL is not there.
-```{r, eval=FALSE}
-c<-c(1:5,NA,6:10)
-mean(c)
-mean(c, na.rm=T)
-anyNA(c)
-d<-c(1:5, NULL, 6:10)
-mean(d)
+
+```
+## [1] NA
+```
+
+```
+## [1] 5.5
+```
+
+```
+## [1] TRUE
+```
+
+```
+## [1] 5.5
 ```
 
 ---
 ## Other data types
-### Matrix
-### Array
-### Dataframe
+# Matrix
+# Array
+# Dataframe
 
-We'll focus on data organized as dataframes. Let's look at a couple...
-
----
-## rep
-Two common usages depending on how you want the data to be organized.
-```{r}
-rep(c('x', 'y'), 3)
-rep(c('x','y'), each=3)
-```
 
