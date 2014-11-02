@@ -12,16 +12,15 @@ knit        : slidify::knit2slides
 ---
 
 ## Outline
-1. R Basics
-  a. Packages
-  b. Data types
+1. R Basics 
+  - Packages 
+  - Data types 
 2. Work directory/Read & Write Files
 3. Working with data
   - Operators
   - Subsetting
   - Merge
 4. Some useful stuff
-
 
 ---
 ## Packages
@@ -154,7 +153,8 @@ dev.off()
 
 ---
 ## Saving text
-### Just like `read.csv` is used to read a csv file, `write.csv` is used to write a new csv
+### Just like `read.csv` is used to read a csv file, 
+### `write.csv` is used to write a new csv
 
 
 ```r
@@ -191,6 +191,65 @@ When using `[]` method, be aware of dimensions
 
 ```r
 len.dat[len.dat$FLEN<500,c(2,3)]
+```
+### Use & or | to match multiple conditions
+
+---
+## Understanding 'AND' vs 'OR'
+Consider two variables that can be `TRUE` or `FALSE`  
+`AND (&)` means both must be `TRUE`  
+`OR (|)` means either can be `TRUE`  
+
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+<!-- Sat Nov  1 20:26:51 2014 -->
+<table border=1>
+<tr> <th>  </th> <th> A </th> <th> B </th> <th> AND </th> <th> OR </th>  </tr>
+  <tr> <td align="right"> 1 </td> <td> TRUE </td> <td> TRUE </td> <td> TRUE </td> <td> TRUE </td> </tr>
+  <tr> <td align="right"> 2 </td> <td> TRUE </td> <td> FALSE </td> <td> FALSE </td> <td> TRUE </td> </tr>
+  <tr> <td align="right"> 3 </td> <td> FALSE </td> <td> TRUE </td> <td> FALSE </td> <td> TRUE </td> </tr>
+  <tr> <td align="right"> 4 </td> <td> FALSE </td> <td> FALSE </td> <td> FALSE </td> <td> FALSE </td> </tr>
+   </table>
+
+---
+## Merge
+Merge is a powerful function.  It can be used to make 'all combination' tables; replace multiple nested `if` statements and reconstruct relational databases.
+
+### All Combinations
+
+```r
+x<-letters[1:3]
+y<-letters[4:6]
+merge(x,y)
+```
+
+---
+## Merging tables based on a lookup table
+Let's change the numerical coding from 1/2/9 to 'male'/'female'/'unk'  
+We could use multiple `ifelse` or `if/else` conditions:
+
+```r
+len.dat$SEX2<-with(len.dat, ifelse(SEX==1, 'male', ifelse(SEX==2,'female','unk')))
+```
+What happens though if you have 10 factors?
+Easier to use `merge`
+
+```r
+key.table<-data.frame(SEX=c(1,2,3), SEX2=c('male','female','unk'))
+merge(len.dat, key.table, by='SEX')
+```
+
+---
+## Multiple key fields
+Let's give a special name to male smelt
+
+```r
+malesmelt<-data.frame(SPC=121, SEX=1, NAME='smelt male')
+merge(len.dat, malesmelt, by=c('SPC', 'SEX'))
+```
+What happens if we want to keep all the data?
+
+```r
+merge(len.dat, malesmelt, by=c('SPC', 'SEX'), all.x=T)
 ```
 
 ---
