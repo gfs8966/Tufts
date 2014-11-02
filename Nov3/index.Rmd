@@ -78,7 +78,8 @@ mean(d)
 ### - Matrix
 ### - Array
 ### - Dataframe
-
+### - Lists*
+* Lists are useful, we'll see them in different places but won't spend much time on them right now.  
 
 We'll focus on data organized as dataframes. Let's look at a couple...
 
