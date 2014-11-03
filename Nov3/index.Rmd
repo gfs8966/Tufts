@@ -223,3 +223,23 @@ merge(len.dat, malesmelt, by=c('SPC', 'SEX'), all.x=T)
 - `args(function)` gives the functions arguments 
 - `function` gives the function's formula 
 
+---
+## Questions?
+
+
+---
+## Homework
+1. Report mean FLEN for each species
+2. Incorporate the following data in to the dataset  
+```{r, echo=FALSE, results='asis'}
+SAM<-c(1:3)
+Date<-c('Jul 2', 'Aug 5', 'Aug 9')
+Gear<-c('Efish', 'GNet', 'Efish')
+mytab<-xtable::xtable(data.frame(SAM, Date, Gear))
+print(mytab, type='html')
+```
+
+3. Determine the mean alewife (spc=61) FLEN from Efish'ing
+4. Make a plot that shows the distribution of smelt (spc=121) size based on gear type
+5. Based on your plot, do you expect that gear is size selective for smelt?
+

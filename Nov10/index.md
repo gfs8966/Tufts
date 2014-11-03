@@ -11,9 +11,10 @@ mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
 ---
 ## Outline
-1. Ordering data
-2. Reshaping data
-3. Control structures  
+1. Ordering 
+2. Reshaping
+3. Summarizing   
+4. Control structures  
   a For  
   b While  
   c if & ifelse  
