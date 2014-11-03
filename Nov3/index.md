@@ -266,6 +266,7 @@ merge(len.dat, malesmelt, by=c('SPC', 'SEX'), all.x=T)
 ---
 ## Homework
 1. Report mean FLEN for each species
+1. Report the total number of each species caught for each *SAM*
 2. Incorporate the following data in to the dataset  
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
 <!-- Sun Nov  2 19:43:31 2014 -->
