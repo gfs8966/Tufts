@@ -14,15 +14,10 @@ knit        : slidify::knit2slides
 1. Ordering 
 2. Reshaping
   * long to wide and back again
-3. Summarizing   
+3. Summarizing 
+  * `dcast`
   * `aggregate`
 4. Dates
-
----
-4. Control structures  
-  a For  
-  b While  
-  c if & ifelse  
 
 ---
 ## Ordering
@@ -134,3 +129,29 @@ len.dat.wide<-reshape(len.dat.long, direction='wide', idvar=c('SAM','SPC','FISH'
 ```
 
 ---
+## Using `dcast` to summarize data
+`dcast` will make your data wide while performing a summary calculation but the output is messy when there is missing values
+
+```r
+dcast(len.dat.wide, SPC~SEX, mean, value.var='FLEN')
+```
+
+---
+## `aggregate` provides better flexibility
+We'll look at 4 different ways of using `aggregate`  
+
+  1.   1 factor by 1 variable
+  2.   1 factor by 2 key fields
+  3.   2 factors by multiple key fields
+  4.   Multiple functions  
+
+
+```r
+aggregate(x~y, data, FUN)
+aggregate(x~y+z, data, FUN)
+aggregate(cbind(w,x)~y+z, data, FUN)
+aggregate(x~y+z, data, FUN = function (x) {cbind(mean(x),sd(x))})
+```
+
+
+

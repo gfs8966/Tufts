@@ -53,9 +53,10 @@
 <ul>
 <li>long to wide and back again</li>
 </ul></li>
-<li>Summarizing<br>
+<li>Summarizing 
 
 <ul>
+<li><code>dcast</code></li>
 <li><code>aggregate</code></li>
 </ul></li>
 <li>Dates</li>
@@ -66,19 +67,6 @@
 </slide>
 
 <slide class="" id="slide-2" style="background:;">
-  <article data-timings="">
-    <ol>
-<li>Control structures<br>
-a For<br>
-b While<br>
-c if &amp; ifelse<br></li>
-</ol>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Ordering</h2>
   </hgroup>
@@ -104,7 +92,7 @@ a
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Reverse Ordering</h2>
   </hgroup>
@@ -121,7 +109,7 @@ a
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Showing the ordered values</h2>
   </hgroup>
@@ -149,7 +137,7 @@ a[myord]
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Ordering dataframes</h2>
   </hgroup>
@@ -167,7 +155,7 @@ len.dat[order(len.dat$SAM, len.dat$SPC),]
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Long to Wide</h2>
   </hgroup>
@@ -186,7 +174,7 @@ One way to fix this would be to change the column names to <code>FLEN_mm</code> 
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Reshaping data</h2>
   </hgroup>
@@ -207,7 +195,7 @@ One way to fix this would be to change the column names to <code>FLEN_mm</code> 
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>And then back again</h2>
   </hgroup>
@@ -222,9 +210,40 @@ One way to fix this would be to change the column names to <code>FLEN_mm</code> 
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Using <code>dcast</code> to summarize data</h2>
+  </hgroup>
   <article data-timings="">
-    
+    <p><code>dcast</code> will make your data wide while performing a summary calculation but the output is messy when there is missing values</p>
+
+<pre><code class="r">dcast(len.dat.wide, SPC~SEX, mean, value.var=&#39;FLEN&#39;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2><code>aggregate</code> provides better flexibility</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We&#39;ll look at 4 different ways of using <code>aggregate</code>  </p>
+
+<ol>
+<li>  1 factor by 1 variable</li>
+<li>  1 factor by 2 key fields</li>
+<li>  2 factors by multiple key fields</li>
+<li>  Multiple functions<br></li>
+</ol>
+
+<pre><code class="r">aggregate(x~y, data, FUN)
+aggregate(x~y+z, data, FUN)
+aggregate(cbind(w,x)~y+z, data, FUN)
+aggregate(x~y+z, data, FUN = function (x) {cbind(mean(x),sd(x))})
+</code></pre>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -241,55 +260,55 @@ One way to fix this would be to change the column names to <code>FLEN_mm</code> 
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title=''>
+        data-slide=2 title='Ordering'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Ordering'>
+        data-slide=3 title='Reverse Ordering'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Reverse Ordering'>
+        data-slide=4 title='Showing the ordered values'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Showing the ordered values'>
+        data-slide=5 title='Ordering dataframes'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Ordering dataframes'>
+        data-slide=6 title='Long to Wide'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Long to Wide'>
+        data-slide=7 title='Reshaping data'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Reshaping data'>
+        data-slide=8 title='And then back again'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='And then back again'>
+        data-slide=9 title='Using <code>dcast</code> to summarize data'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title=''>
+        data-slide=10 title='<code>aggregate</code> provides better flexibility'>
          10
       </a>
     </li>

@@ -59,3 +59,56 @@ len.dat.wide<-reshape(len.dat.long, direction='wide', idvar=c('SAM','SPC','FISH'
 head(len.dat.wide)
 names(len.dat.wide)[5:6]<-c('FLEN','TLEN')
 head(len.dat.wide)
+
+##### Summarizing with dcast
+dcast(len.dat.wide, SPC~SEX, mean, value.var='FLEN')
+dcast(len.dat.wide, SAM~SPC, max, value.var='TLEN')
+
+##### Using aggregate
+head(len.dat)
+sum1<-aggregate(FLEN~SPC, len.dat, mean)
+sum1
+
+# similar to the dcast example...
+sum2<-aggregate(FLEN~SPC+SEX, data=len.dat, mean)
+sum2 # notice it only returns combinations that exist
+aggregate(TLEN~SAM+SPC, len.dat, max)
+# generate a catch summary
+aggregate(FISH~SAM+SPC, data=len.dat, length)
+
+# now FLEN and TLEN
+aggregate(cbind(FLEN, TLEN)~SPC+SEX, data=len.dat, mean)
+aggregate(cbind(FLEN, TLEN)~SPC, data=len.dat, mean)
+
+# suppose we wanted mean, sd and n...
+# need to write a custom function
+myfunct<-function(x) {c(xbar=mean(x), stdev=sd(x), n=length(x))}
+b
+myfunct(b)
+aggregate(FLEN~SAM+SPC, len.dat, myfunct)
+aggregate(cbind(FLEN,TLEN)~SPC, data=len.dat, myfunct)
+
+
+##### Dates
+SAM<-c(1:3)
+SetDate<-c('02/07/14','05/08/14','09/08/14')
+LiftDate<-c('03/07/14','07/08/14','11/08/14')
+SetTime<-c('09:45', '10:15', '13:45')
+LiftTime<-c('11:45', '9:30', '10:00')
+Gear<-c('Gnet', 'GNet', 'GNet')
+set.data<-data.frame(SAM, SetDate, LiftDate, SetTime, LiftTime, Gear, stringsAsFactors=F)
+str(set.data)
+
+set.data$SET<-paste(SetDate, SetTime)
+set.data$LIFT<-paste(LiftDate, LiftTime)
+head(set.data)
+set.data$SET1<-as.Date(set.data$SET, format="%d/%m/%y %H:%M")
+set.data$LIFT1<-as.Date(set.data$LIFT, format="%d/%m/%y %H:%M")
+with(set.data, LIFT1-SET1)
+
+library(lubridate)
+set.data$SET2<-dmy_hm(set.data$SET)
+set.data$LIFT2<-dmy_hm(set.data$LIFT)
+dur<-with(set.data, LIFT2-SET2)
+dur
+as.period(dur)
