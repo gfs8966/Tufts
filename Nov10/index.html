@@ -48,8 +48,26 @@
   <article data-timings="">
     <ol>
 <li>Ordering </li>
-<li>Reshaping</li>
-<li>Summarizing<br></li>
+<li>Reshaping
+
+<ul>
+<li>long to wide and back again</li>
+</ul></li>
+<li>Summarizing<br>
+
+<ul>
+<li><code>aggregate</code></li>
+</ul></li>
+<li>Dates</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <ol>
 <li>Control structures<br>
 a For<br>
 b While<br>
@@ -60,13 +78,153 @@ c if &amp; ifelse<br></li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
-    <h2>new slide</h2>
+    <h2>Ordering</h2>
   </hgroup>
   <article data-timings="">
-    <p>with stuff</p>
+    <p>The function <code>order</code> returns a vector of the order, presented as the position in the orginal vector</p>
 
+<pre><code class="r">a&lt;-c(letters[3:5], letters[1:2], letters[6:10])
+a
+</code></pre>
+
+<pre><code>##  [1] &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;a&quot; &quot;b&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot;
+</code></pre>
+
+<pre><code class="r">order(a)
+</code></pre>
+
+<pre><code>##  [1]  4  5  1  2  3  6  7  8  9 10
+</code></pre>
+
+<p>Read: as lowest value is a[4] and highest is a[10]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Reverse Ordering</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Use the agrument <code>decreasing</code> to change to decreasing order</p>
+
+<pre><code class="r">order(a, decreasing = T)
+</code></pre>
+
+<pre><code>##  [1] 10  9  8  7  6  3  2  1  5  4
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Showing the ordered values</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This is done in two phases:<br>
+1.  Determine the order<br>
+2.  Present the vector <em>&#39;subsetted&#39;</em> according to the order  </p>
+
+<pre><code class="r">myord&lt;-order(a)
+a[myord]
+</code></pre>
+
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot;
+</code></pre>
+
+<p>This is typically done inline:</p>
+
+<pre><code class="r">a[order(a)]
+</code></pre>
+
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Ordering dataframes</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Can order based on a single column or several columns...</p>
+
+<pre><code class="r">len.dat&lt;-read.csv(&#39;StatsClass/lengthdata.csv&#39;)
+# by one column
+len.dat[order(len.dat$SAM),]
+# by two columns
+len.dat[order(len.dat$SAM, len.dat$SPC),]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Long to Wide</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Let&#39;s suppose that total length values are TLEN=FLEN+10 but we&#39;ll also assume (for some ridiculous reason) we recorded TLEN in cm, not mm</p>
+
+<pre><code class="r">len.dat&lt;-len.dat[len.dat$SPC!=380,] # sculpins don&#39;t have a FLEN
+len.dat$TLEN&lt;-(len.dat$FLEN+10)/10
+head(len.dat)
+</code></pre>
+
+<p>This makes our data very confusing...<br>
+One way to fix this would be to change the column names to <code>FLEN_mm</code> and <code>TLEN_cm</code> but that&#39;s kind of messy for typing in to formulas..</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Reshaping data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Handy functions are found in <code>reshape2</code></p>
+
+<pre><code class="r">library(reshape2)
+</code></pre>
+
+<p>We&#39;ll focus on <code>melt</code> (wide to long) and <code>cast</code> (long to wide)</p>
+
+<pre><code class="r">len.dat.long&lt;-melt(len.dat, id=c(&#39;SAM&#39;, &#39;SPC&#39;, &#39;FISH&#39;, &#39;SEX&#39;))
+</code></pre>
+
+<p>And now we can merge a table of units to the data...</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>And then back again</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Use <code>reshape</code> to go to wide form</p>
+
+<pre><code class="r">len.dat.wide&lt;-reshape(len.dat.long, direction=&#39;wide&#39;, idvar=c(&#39;SAM&#39;,&#39;SPC&#39;,&#39;FISH&#39;,&#39;SEX&#39;), 
+                      v.names=&#39;value&#39;, timevar=&#39;variable&#39;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <article data-timings="">
+    
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -83,8 +241,56 @@ c if &amp; ifelse<br></li>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='new slide'>
+        data-slide=2 title=''>
          2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Ordering'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Reverse Ordering'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Showing the ordered values'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Ordering dataframes'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Long to Wide'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Reshaping data'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='And then back again'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title=''>
+         10
       </a>
     </li>
   </ul>

@@ -138,3 +138,29 @@ malesmelt<-data.frame(SPC=121, SEX=1, NAME='smelt male')
 merge(len.dat, malesmelt, by=c('SPC', 'SEX'))
 merge(len.dat, malesmelt, by=c('SPC', 'SEX'), all.x=T)
 
+##### Homework
+len.dat<-read.csv('StatsClass/lengthdata.csv')
+# Q1
+tapply(len.dat$FLEN, len.dat$SPC, mean, na.rm=T)
+with(len.dat, by(FLEN, SPC, mean, na.rm=T))
+
+# Q2
+by(len.dat$FISH, len.dat[,1:2], length)
+aggregate(FISH~SAM+SPC, len.dat, length)
+
+# Q3
+SAM<-c(1:3)
+Date<-c('Jul 2', 'Aug 5', 'Aug 9')
+Gear<-c('Efish', 'GNet', 'Efish')
+mytab<-data.frame(SAM, Date, Gear)
+
+newtab<-merge(len.dat, mytab, by=c('SAM'))
+head(newtab)
+
+# Q4
+mean(newtab$FLEN[newtab$SPC==61 & newtab$Gear=='Efish'])
+
+# Q5
+plot(FLEN~Gear, newtab[newtab$SPC==121,])
+
+# Q6 - yes or no... Efish might be more size selective, but mean FLEN are equal, 

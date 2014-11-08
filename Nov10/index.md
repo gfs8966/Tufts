@@ -13,17 +13,124 @@ knit        : slidify::knit2slides
 ## Outline
 1. Ordering 
 2. Reshaping
+  * long to wide and back again
 3. Summarizing   
+  * `aggregate`
+4. Dates
+
+---
 4. Control structures  
   a For  
   b While  
   c if & ifelse  
 
+---
+## Ordering
+The function `order` returns a vector of the order, presented as the position in the orginal vector
+
+
+```r
+a<-c(letters[3:5], letters[1:2], letters[6:10])
+a
+```
+
+```
+##  [1] "c" "d" "e" "a" "b" "f" "g" "h" "i" "j"
+```
+
+```r
+order(a)
+```
+
+```
+##  [1]  4  5  1  2  3  6  7  8  9 10
+```
+Read: as lowest value is a[4] and highest is a[10]
 
 ---
-## new slide
-with stuff
+## Reverse Ordering
+Use the agrument `decreasing` to change to decreasing order
+
+```r
+order(a, decreasing = T)
+```
+
+```
+##  [1] 10  9  8  7  6  3  2  1  5  4
+```
+
+---
+## Showing the ordered values
+This is done in two phases:  
+1.  Determine the order  
+2.  Present the vector *'subsetted'* according to the order  
 
 
+```r
+myord<-order(a)
+a[myord]
+```
+
+```
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
+```
+This is typically done inline:
+
+```r
+a[order(a)]
+```
+
+```
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
+```
+
+---
+## Ordering dataframes
+Can order based on a single column or several columns...
+
+```r
+len.dat<-read.csv('StatsClass/lengthdata.csv')
+# by one column
+len.dat[order(len.dat$SAM),]
+# by two columns
+len.dat[order(len.dat$SAM, len.dat$SPC),]
+```
+
+---
+## Long to Wide
+Let's suppose that total length values are TLEN=FLEN+10 but we'll also assume (for some ridiculous reason) we recorded TLEN in cm, not mm
+
+```r
+len.dat<-len.dat[len.dat$SPC!=380,] # sculpins don't have a FLEN
+len.dat$TLEN<-(len.dat$FLEN+10)/10
+head(len.dat)
+```
+This makes our data very confusing...  
+One way to fix this would be to change the column names to `FLEN_mm` and `TLEN_cm` but that's kind of messy for typing in to formulas..
+
+---
+## Reshaping data
+Handy functions are found in `reshape2`
+
+```r
+library(reshape2)
+```
+We'll focus on `melt` (wide to long) and `cast` (long to wide)
 
 
+```r
+len.dat.long<-melt(len.dat, id=c('SAM', 'SPC', 'FISH', 'SEX'))
+```
+
+And now we can merge a table of units to the data...
+
+---
+## And then back again
+Use `reshape` to go to wide form
+
+```r
+len.dat.wide<-reshape(len.dat.long, direction='wide', idvar=c('SAM','SPC','FISH','SEX'), 
+                      v.names='value', timevar='variable')
+```
+
+---
