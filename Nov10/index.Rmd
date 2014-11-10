@@ -122,18 +122,47 @@ aggregate(x~y+z, data, FUN = function (x) {c(mean(x),sd(x))})
 
 ---
 ## Primer on dates
+### Dates are hard!
+Consider an example...  
+What is the date 1 year from today?  
+What is meant by a year??? 12 months, 365 days, same day next calendar year, what happens if there is a leap year?
+
+`lubridate` makes some of these tasks easier
+```{r, eval=FALSE}
+library(lubridate)
+Sys.time()
+Sys.time()+years(1)
+Sys.time()+days(365)
+
+```
+
+For help, start here:  
+
+http://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html
+
+---
+## Practical Example
 Suppose the homework table looked like:
 
-```{r}
+```{r, results='asis', echo=FALSE}
 SAM<-c(1:3)
 SetDate<-c('02/07/14','05/08/14','09/08/14')
 LiftDate<-c('03/07/14','07/08/14','11/08/14')
 SetTime<-c('09:45', '10:15', '13:45')
 LiftTime<-c('11:45', '9:30', '10:00')
 Gear<-c('Gnet', 'GNet', 'GNet')
-mytab<-xtable::xtable(data.frame(SAM, Date, Gear))
+mytab<-xtable::xtable(data.frame(SAM, SetDate, SetTime, LiftDate, LiftTime, Gear))
+print(mytab, type='html')
 ```
-
+    
 We should probably calculate soak time for each net...
 
 ---
+## Homework
+### Calculate mean CUE as fish per 24hr net set for each species.
+
+## Next week...
+1.  Control Structures
+  * `for`, `if`, `ifelse`, `while`
+2.  Apply family
+    * `apply`, `tapply`, `lapply`

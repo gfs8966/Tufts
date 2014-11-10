@@ -241,8 +241,86 @@ One way to fix this would be to change the column names to <code>FLEN_mm</code> 
 <pre><code class="r">aggregate(x~y, data, FUN)
 aggregate(x~y+z, data, FUN)
 aggregate(cbind(w,x)~y+z, data, FUN)
-aggregate(x~y+z, data, FUN = function (x) {cbind(mean(x),sd(x))})
+aggregate(x~y+z, data, FUN = function (x) {c(mean(x),sd(x))})
 </code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Primer on dates</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Dates are hard!</h3>
+
+<p>Consider an example...<br>
+What is the date 1 year from today?<br>
+What is meant by a year??? 12 months, 365 days, same day next calendar year, what happens if there is a leap year?</p>
+
+<p><code>lubridate</code> makes some of these tasks easier</p>
+
+<pre><code class="r">library(lubridate)
+Sys.time()
+Sys.time()+years(1)
+Sys.time()+days(365)
+</code></pre>
+
+<p>For help, start here:  </p>
+
+<p><a href="http://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html">http://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Practical Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Suppose the homework table looked like:</p>
+
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+
+<!-- Mon Nov 10 10:14:28 2014 -->
+
+<table border=1>
+<tr> <th>  </th> <th> SAM </th> <th> SetDate </th> <th> SetTime </th> <th> LiftDate </th> <th> LiftTime </th> <th> Gear </th>  </tr>
+  <tr> <td align="right"> 1 </td> <td align="right">   1 </td> <td> 02/07/14 </td> <td> 09:45 </td> <td> 03/07/14 </td> <td> 11:45 </td> <td> Gnet </td> </tr>
+  <tr> <td align="right"> 2 </td> <td align="right">   2 </td> <td> 05/08/14 </td> <td> 10:15 </td> <td> 07/08/14 </td> <td> 9:30 </td> <td> GNet </td> </tr>
+  <tr> <td align="right"> 3 </td> <td align="right">   3 </td> <td> 09/08/14 </td> <td> 13:45 </td> <td> 11/08/14 </td> <td> 10:00 </td> <td> GNet </td> </tr>
+   </table>
+    
+
+<p>We should probably calculate soak time for each net...</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Homework</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Calculate CUE as fish per 24hr net set.</h3>
+
+<h2>Next week...</h2>
+
+<ol>
+<li> Control Structures
+
+<ul>
+<li><code>for</code>, <code>if</code>, <code>ifelse</code>, <code>while</code></li>
+</ul></li>
+<li> Apply family
+
+<ul>
+<li><code>apply</code>, <code>tapply</code>, <code>lapply</code></li>
+</ul></li>
+</ol>
 
   </article>
   <!-- Presenter Notes -->
@@ -310,6 +388,24 @@ aggregate(x~y+z, data, FUN = function (x) {cbind(mean(x),sd(x))})
       <a href="#" target="_self" rel='tooltip' 
         data-slide=10 title='<code>aggregate</code> provides better flexibility'>
          10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Primer on dates'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Practical Example'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Homework'>
+         13
       </a>
     </li>
   </ul>

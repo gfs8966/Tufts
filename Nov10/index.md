@@ -150,8 +150,50 @@ We'll look at 4 different ways of using `aggregate`
 aggregate(x~y, data, FUN)
 aggregate(x~y+z, data, FUN)
 aggregate(cbind(w,x)~y+z, data, FUN)
-aggregate(x~y+z, data, FUN = function (x) {cbind(mean(x),sd(x))})
+aggregate(x~y+z, data, FUN = function (x) {c(mean(x),sd(x))})
 ```
 
+---
+## Primer on dates
+### Dates are hard!
+Consider an example...  
+What is the date 1 year from today?  
+What is meant by a year??? 12 months, 365 days, same day next calendar year, what happens if there is a leap year?
 
+`lubridate` makes some of these tasks easier
 
+```r
+library(lubridate)
+Sys.time()
+Sys.time()+years(1)
+Sys.time()+days(365)
+```
+
+For help, start here:  
+
+http://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html
+
+---
+## Practical Example
+Suppose the homework table looked like:
+
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+<!-- Mon Nov 10 10:14:28 2014 -->
+<table border=1>
+<tr> <th>  </th> <th> SAM </th> <th> SetDate </th> <th> SetTime </th> <th> LiftDate </th> <th> LiftTime </th> <th> Gear </th>  </tr>
+  <tr> <td align="right"> 1 </td> <td align="right">   1 </td> <td> 02/07/14 </td> <td> 09:45 </td> <td> 03/07/14 </td> <td> 11:45 </td> <td> Gnet </td> </tr>
+  <tr> <td align="right"> 2 </td> <td align="right">   2 </td> <td> 05/08/14 </td> <td> 10:15 </td> <td> 07/08/14 </td> <td> 9:30 </td> <td> GNet </td> </tr>
+  <tr> <td align="right"> 3 </td> <td align="right">   3 </td> <td> 09/08/14 </td> <td> 13:45 </td> <td> 11/08/14 </td> <td> 10:00 </td> <td> GNet </td> </tr>
+   </table>
+    
+We should probably calculate soak time for each net...
+
+---
+## Homework
+### Calculate CUE as fish per 24hr net set.
+
+## Next week...
+1.  Control Structures
+  * `for`, `if`, `ifelse`, `while`
+2.  Apply family
+    * `apply`, `tapply`, `lapply`

@@ -90,6 +90,19 @@ aggregate(cbind(FLEN,TLEN)~SPC, data=len.dat, myfunct)
 
 
 ##### Dates
+library(lubridate)
+Sys.time()
+Sys.time()+years(1)
+leap_year(2016)
+ymd('20150301')+years(1)
+ymd('20150301')+days(365)
+
+ymd('020301')
+ymd('020301')-years(100)
+
+##### Practical example
+
+# enter the data
 SAM<-c(1:3)
 SetDate<-c('02/07/14','05/08/14','09/08/14')
 LiftDate<-c('03/07/14','07/08/14','11/08/14')
@@ -97,18 +110,29 @@ SetTime<-c('09:45', '10:15', '13:45')
 LiftTime<-c('11:45', '9:30', '10:00')
 Gear<-c('Gnet', 'GNet', 'GNet')
 set.data<-data.frame(SAM, SetDate, LiftDate, SetTime, LiftTime, Gear, stringsAsFactors=F)
+# check classes
 str(set.data)
 
+# make 1 long date/time field
 set.data$SET<-paste(SetDate, SetTime)
 set.data$LIFT<-paste(LiftDate, LiftTime)
 head(set.data)
+
+# convert to date class
 set.data$SET1<-as.Date(set.data$SET, format="%d/%m/%y %H:%M")
 set.data$LIFT1<-as.Date(set.data$LIFT, format="%d/%m/%y %H:%M")
 with(set.data, LIFT1-SET1)
+# not exactly what we wanted...
 
-library(lubridate)
+# try using lubridate functions
 set.data$SET2<-dmy_hm(set.data$SET)
 set.data$LIFT2<-dmy_hm(set.data$LIFT)
 dur<-with(set.data, LIFT2-SET2)
 dur
+class(dur)
 as.period(dur)
+
+as.numeric(dur, units='hours')
+as.numeric(dur, units='days')
+as.numeric(dur, units='mins')
+
