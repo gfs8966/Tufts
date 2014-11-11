@@ -190,10 +190,22 @@ We should probably calculate soak time for each net...
 
 ---
 ## Homework
-### Calculate CUE as fish per 24hr net set.
+### Calculate mean CUE as fish per 24hr net set for each species.
 
 ## Next week...
 1.  Control Structures
   * `for`, `if`, `ifelse`, `while`
 2.  Apply family
     * `apply`, `tapply`, `lapply`
+    
+
+---
+## something else
+
+```
+## starting httpd help server ... done
+```
+
+---
+## something else
+

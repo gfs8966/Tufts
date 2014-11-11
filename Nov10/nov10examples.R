@@ -23,13 +23,13 @@ order(-b)
 myord<-order(a)
 a[myord]
 a[order(a)]
-
+a[2:4]
 b[order(b)]
 b[order(b, decreasing=T)]
 b[order(-b)]
 
 ## Ordering a dataframe
-len.dat<-read.csv('StatsClass/lengthdata.csv')
+len.dat<-read.csv('Tufts/StatsClass/lengthdata.csv')
 View(len.dat[order(len.dat$SAM),])
 View(len.dat[order(len.dat$SAM, len.dat$SPC),])
 
@@ -62,7 +62,7 @@ head(len.dat.wide)
 
 ##### Summarizing with dcast
 dcast(len.dat.wide, SPC~SEX, mean, value.var='FLEN')
-dcast(len.dat.wide, SAM~SPC, max, value.var='TLEN')
+dcast(len.dat.wide, SAM~SPC, mean, value.var='TLEN')
 
 ##### Using aggregate
 head(len.dat)
@@ -72,6 +72,14 @@ sum1
 # similar to the dcast example...
 sum2<-aggregate(FLEN~SPC+SEX, data=len.dat, mean)
 sum2 # notice it only returns combinations that exist
+
+x<-as.data.frame(unique(len.dat$SPC))
+y<-as.data.frame(c(1,2))
+df<-merge(x,y)
+names(df)<-c('SPC', 'SEX')
+merge(sum2, df, by=c('SPC','SEX'), all.y=T)
+
+
 aggregate(TLEN~SAM+SPC, len.dat, max)
 # generate a catch summary
 aggregate(FISH~SAM+SPC, data=len.dat, length)
@@ -136,3 +144,19 @@ as.numeric(dur, units='hours')
 as.numeric(dur, units='days')
 as.numeric(dur, units='mins')
 
+### homework solution
+sum1<-aggregate(FISH~SAM+SPC, data=len.dat, length)
+set.data$dur<-with(set.data, as.numeric(LIFT2-SET2, units='hours'))
+x<-as.data.frame(unique(len.dat$SPC))
+y<-as.data.frame(unique(len.dat$SAM))
+df<-merge(x,y)
+names(df)<-c('SPC', 'SAM')
+sum3<-merge(sum1, df, by=c('SPC','SAM'), all.y=T)
+sum3$FISH[is.na(sum3$FISH)]<-0
+names(sum3)<-c('SPC','SAM', 'N')
+sum4<-merge(sum3, set.data, by='SAM')
+head(sum4)
+sum4$catstan<-with(sum4, N/dur)
+perdaymean<-function(x){mean(x)*24}
+aggregate(catstan~SPC, sum4, perdaymean)
+sum4[sum4$SPC==61,]
