@@ -1,5 +1,5 @@
 ---
-title       : Creating Efficiencies
+title       : "Advanced Commands in R"
 subtitle    : 
 author      : Jeremy Holden
 job         : 
@@ -15,7 +15,7 @@ knit        : slidify::knit2slides
 2.  Control Structures
   * `for`, `while`,`if`, `ifelse`
 2.  Apply family
-    * `apply`, `tapply`, `lapply`
+    * `tapply`, `lapply`
 
 ---
 ## Custom functions
@@ -59,14 +59,58 @@ cust.plot<-function(x,y) {
 
 cust.plot(rnorm(100), rnorm(100))
 ```
+  
+There is a really good example of writing plot functions here: http://nicercode.github.io/
 
 ---
-for
-`for` is used to create loops
-### What's a loop?
-A `for` loop some instruction(s) is repeated over a **fixed** length of time
+## Saving functions
+### As you start to write functions you'll probably want to save them for future use.  
+
+There are two ways of doing this:  
+
+1.  `source` a *.R file with saved functions  
+2.  Compile everything in to a local R package  
+
+We'll focus on #1.
+
+---
+## Loading saved functions
+Done using `source`
 ```{r}
-for (placeholder in 1:10) {print (placeholder)}
+FUN1(2)
+source('~/Tufts/StatsClass/customFUN1.R')
+FUN1(2)
+```
+
+---
+## Setting default values
+Sometimes you want to build a generic function but set a common default value.
+```{r}
+myfun<-function(x, y=5) {x*y}
+myfun(5)
+myfun(5,2)
+```
+
+---
+## Anonymous variables in functions
+Something created in a function only exists within a function unless you tell it to live outside the function in the **Global Environment**  
+`<<-` assigns a variable to the **Global Environment**
+```{r, eval=FALSE}
+myfun<-function(){invis<-rnorm(100); print(mean(invis))}
+myfun()
+invis
+myfun2<-function(){invis2<<-rnorm(100); print(mean(invis2))}
+myfun()
+invis2
+
+```
+
+---
+## for
+### What's a loop?
+A `for` loop repeats some instructions over a **fixed** length of time
+```{r}
+for (placeholder in 1:5) {print (placeholder)}
 ```
 
 `placeholder` can be anything but the general convention uses `i` then `j` for nested loops.
@@ -96,11 +140,14 @@ for (i in 1:5){
 
 ---
 ## Counter vs contents
-The placeholder can be numeric (counter) or can cylcle through elements of a vector
+The placeholder can cylcle through elements of a vector
 ```{r}
 a<-letters[1:10]
 for (i in a) {cat(i)}
-for (i in 1:10) {cat(paste(i, a[i]))}
+```
+Or be used as a counter; or both:
+```{r}
+for (i in 1:10) {cat(paste(i, a[i], " ", sep=""))}
 ```
 
 ---
@@ -123,6 +170,37 @@ for (i in spc){
   x<-mydat[mydat$SPC==i,]
   boxplot(FLEN~SEX, x)
 }
+```
+
+---
+## ifelse & if/else
+
+ifelse(condition, 'if true do this', 'otherwise do this')
+```{r, eval=FALSE}
+x<-1:10
+ifelse(x>5, x+1, x^2)
+```
+`if` & `else` can work in tandem in loops or functions, similar to above allows multiple commands within the `if` or `else`
+```{r, eval=FALSE}
+for (i in x){
+  if (i%%2==0) {print(i^2)}
+  else {print(i/10)}
+}
+```
+
+---
+## Breaking or skipping within a loop
+`break` and `next` can be used in a loop/function to stop or skip an iteration
+```{r, eval=FALSE}
+for (i in x){
+  if (i%%2==0) {next}
+  else(cat(i))
+}
+for (i in x){
+  if (i^2>25) {break}
+  else(cat(i))
+}
+
 ```
 
 ---
@@ -151,5 +229,14 @@ lapply(mylist, mean)
 sapply(mylist, mean)
 ```
 
+---
+## Questions?
 
+Time permitting: a quick look at what a custom package looks like
+
+### Next week
+a.  base plotting/ggplot/lattice  
+b.  interactive plots (googleVis)/animation  
+c.  reproducible documents (markdown, knitr, slidify)  
+d.  suggestions?  
 

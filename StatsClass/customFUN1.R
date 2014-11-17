@@ -1,0 +1,1 @@
+FUN1<-function(x) {round(rnorm(x)*(10), 0)}

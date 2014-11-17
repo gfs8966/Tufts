@@ -24,6 +24,26 @@ cust.plot(rnorm(100), rnorm(100))
 cust.plot(rnorm(100), rnorm(100))
 cust.plot(rnorm(100), rnorm(100))
 
+## load a custom function
+FUN1(2)
+source('~/Tufts/StatsClass/customFUN1.R')
+FUN1(2)
+
+
+## Setting Defaults
+myfun<-function(x, y=5) {x*y}
+myfun(5)
+myfun(5,2)
+
+### Globabl Environment
+myfun<-function(){invis<-rnorm(100); print(mean(invis))}
+myfun()
+invis
+myfun2<-function(){invis2<<-rnorm(100); print(mean(invis2))}
+myfun()
+invis2
+
+
 ### for loop
 for (placeholder in 1:10) {print (placeholder)}
 
@@ -68,6 +88,39 @@ for (i in spc){
   boxplot(FLEN~SEX, x)
 }
 
+## ifelse, if & else
+x<-1:10
+ifelse(x>5, x+1, x^2)
+
+# %% gives the remainder in division
+10%%2
+10%%3
+
+for (i in x){
+  if (i%%2==0) {print(i^2)}
+  else {print(i/10)}
+}
+
+## break and next
+for (i in x){
+  if (i%%2==0) {next}
+  else(cat(i))
+}
+for (i in x){
+  if (i^2>25) {break}
+  else(cat(i))
+}
+
+custom.csv<-function(filename) {
+  if(file.exists(filename)){mycsv<<-read.csv(filename)}
+  else{cat('File does not exist')}
+}
+
+custom.csv('junk123.csv')
+custom.csv('StatsClass/lengthdata.csv')
+head(mycsv)
+
+
 ## Apply
 mydf<-data.frame(x=rep(a, 1000), y=(rnorm(10000)))
 system.time(for (i in a) {cat(mean(mydf$y[mydf$x==i]))})
@@ -97,10 +150,11 @@ allfiles<-grep(allfiles, pattern='^myfile', value=T)
 allfiles<-paste('StatsClass/', allfiles, sep="")
 newlist<-lapply(allfiles, read.csv)
 str(newlist)
-lapply(newlist, FUN=function(x) mean(x[,2]))
+lapply(newlist, FUN=function(x) mean(x[,2])) # note the use of the anonymous function
 sapply(newlist, FUN=function(x) mean(x[,2]))
 
 ## practical example...
 len.dat<-read.csv('StatsClass/lengthdata.csv')
 len.list<-split(len.dat, len.dat$SPC)
-sapply(len.list, FUN=function(x) mean(x$FLEN))
+sapply(len.list, FUN=function(x) mean(x$FLEN)) # note the use of the anonymous function
+lapply(len.list, FUN=function(x) hist(x$FLEN, main=x$SPC[1]))
