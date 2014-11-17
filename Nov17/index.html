@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Data Manipulation</title>
+  <title>Creating Efficiencies</title>
   <meta charset="utf-8">
-  <meta name="description" content="Data Manipulation">
+  <meta name="description" content="Creating Efficiencies">
   <meta name="author" content="Jeremy Holden">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,7 +31,7 @@
     <!-- LOGO SLIDE -->
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
-    <h1>Data Manipulation</h1>
+    <h1>Creating Efficiencies</h1>
     <h2></h2>
     <p>Jeremy Holden<br/></p>
   </hgroup>
@@ -49,7 +49,7 @@
 <li> Control Structures
 
 <ul>
-<li><code>for</code>, <code>if</code>, <code>ifelse</code>, <code>while</code></li>
+<li><code>for</code>, <code>while</code>,<code>if</code>, <code>ifelse</code></li>
 </ul></li>
 <li> Apply family
 
@@ -63,6 +63,225 @@
   <!-- Presenter Notes -->
 </slide>
 
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <p>for
+<code>for</code> is used to create loops</p>
+
+<h3>What&#39;s a loop?</h3>
+
+<p>A <code>for</code> loop some instruction(s) is repeated over a <strong>fixed</strong> length of time</p>
+
+<pre><code class="r">for (placeholder in 1:10) {print (placeholder)}
+</code></pre>
+
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10
+</code></pre>
+
+<p><code>placeholder</code> can be anything but the general convention uses <code>i</code> then <code>j</code> for nested loops.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>while</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><code>while</code> works similarly to <code>for</code> but instead of a fixed duration the loop operates as long as the condition is <code>TRUE</code></p>
+
+<pre><code class="r">x&lt;-1
+while(x &lt; 5) {cat(x); x&lt;-x+1}
+</code></pre>
+
+<pre><code>## 1234
+</code></pre>
+
+<pre><code class="r">x
+</code></pre>
+
+<pre><code>## [1] 5
+</code></pre>
+
+<h3>Watch out for runaway loops!!!</h3>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h3>Nested loops</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>It&#39;s possible to nest loops within each other although much more than 1 nested loop (loop within a loop) becomes difficult to write/interpret.</p>
+
+<pre><code class="r">for (i in 1:5){
+  for (j in 6:10){
+    cat(paste(i*j, &quot; &quot;))
+  }
+}
+</code></pre>
+
+<pre><code>## 6  7  8  9  10  12  14  16  18  20  18  21  24  27  30  24  28  32  36  40  30  35  40  45  50
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Counter vs contents</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The placeholder can be numeric (counter) or can cylcle through elements of a vector</p>
+
+<pre><code class="r">a&lt;-letters[1:10]
+for (i in a) {cat(i)}
+</code></pre>
+
+<pre><code>## abcdefghij
+</code></pre>
+
+<pre><code class="r">for (i in 1:10) {cat(paste(i, a[i]))}
+</code></pre>
+
+<pre><code>## 1 a2 b3 c4 d5 e6 f7 g8 h9 i10 j
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Debugging</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><code>cat</code> and <code>print</code> commands embedded in loops/functions can help with debugging.  </p>
+
+<p><code>debug</code>, <code>browser</code> and <code>trace</code> are other debugging features in R if you want to explore.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>How can we use loops...???</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Any repetive task can be incorporated in to a loop to condense code.</p>
+
+<h3>Plotting Example</h3>
+
+<pre><code class="r">mydat&lt;-read.csv(&#39;Tufts/StatsClass/lengthdata.csv&#39;)
+spc&lt;-unique(mydat$SPC)
+spc&lt;-spc[spc!=380]
+par(mfrow=c(3,2), mar=c(5,4,1,1))
+for (i in spc){
+  x&lt;-mydat[mydat$SPC==i,]
+  boxplot(FLEN~SEX, x)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h3>Apply family</h3>
+  </hgroup>
+  <article data-timings="">
+    <p>Apply family is a vectorized loop function.  Generally it runs faster since loop is preformed in C.</p>
+
+<pre><code class="r">mydf&lt;-data.frame(x=rep(a, 1000), y=(rnorm(10000)))
+system.time(for (i in a) {cat(mean(mydf$y[mydf$x==i]))})
+</code></pre>
+
+<pre><code>## 0.047940.00033680.05862-0.008488-0.03931-0.028820.0536-0.03348-0.01688-0.04193
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.004   0.000   0.008
+</code></pre>
+
+<pre><code class="r">system.time(cat(tapply(mydf$y, mydf$x, mean)))
+</code></pre>
+
+<pre><code>## 0.04794 0.0003368 0.05862 -0.008488 -0.03931 -0.02882 0.0536 -0.03348 -0.01688 -0.04193
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.000   0.000   0.002
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Apply family</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>lapply: Loop over a list and evaluate a function on each element, returns a list</li>
+<li>sapply: Same as lapply but try to simplify the result</li>
+<li>apply: Apply a function over the margins of an array</li>
+<li>tapply: Apply a function over subsets of a vector</li>
+<li>mapply: Multivariate version of lapply</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>lapply vs sapply</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">mylist&lt;-list(a=1:10, b=100:200, c=sample(100, 1:100), d=rnorm(100))
+lapply(mylist, mean)
+</code></pre>
+
+<pre><code>## $a
+## [1] 5.5
+## 
+## $b
+## [1] 150
+## 
+## $c
+## [1] 26
+## 
+## $d
+## [1] -0.02387
+</code></pre>
+
+<pre><code class="r">sapply(mylist, mean)
+</code></pre>
+
+<pre><code>##         a         b         c         d 
+##   5.50000 150.00000  26.00000  -0.02387
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
     <slide class="backdrop"></slide>
   </slides>
   <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
@@ -71,6 +290,60 @@
       <a href="#" target="_self" rel='tooltip' 
         data-slide=1 title='Outline'>
          1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title=''>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='while'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Nested loops'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Counter vs contents'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Debugging'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='How can we use loops...???'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Apply family'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Apply family'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='lapply vs sapply'>
+         10
       </a>
     </li>
   </ul>
