@@ -40,7 +40,7 @@ myfun<-function(){invis<-rnorm(100); print(mean(invis))}
 myfun()
 invis
 myfun2<-function(){invis2<<-rnorm(100); print(mean(invis2))}
-myfun()
+myfun2()
 invis2
 
 
@@ -71,11 +71,10 @@ b<-numeric() # creates a 'storage' vector
 for (i in 1:5){  
   print(i)  
   b<-rbind(b, mean(rnorm(10)))  
-  print(b)  
+  print(b) 
   # adding a manual pause will help you see what is going on
   # need to press <return> while in console to advance 
-  readline("Press <return> to continue")
-  
+  #readline("Press <return> to continue")
 }
 
 ### Plot example
@@ -119,17 +118,25 @@ custom.csv<-function(filename) {
 custom.csv('junk123.csv')
 custom.csv('StatsClass/lengthdata.csv')
 head(mycsv)
+custom.csv2<-function(filename) {
+  if(file.exists(filename)){mycsv<-read.csv(filename);
+  mycsv}
+  else{cat('File does not exist')}
+}
 
+mycsv<-custom.csv2('StatsClass/lengthdata.csv')
+head(mycsv)
 
 ## Apply
-mydf<-data.frame(x=rep(a, 1000), y=(rnorm(10000)))
+a<-1:10
+mydf<-data.frame(x=rep(a, 10000), y=(rnorm(1000000)))
 system.time(for (i in a) {cat(mean(mydf$y[mydf$x==i]))})
 system.time(cat(tapply(mydf$y, mydf$x, mean)))
 
 ## lapply vs sapply
 mylist<-list(a=1:10, b=100:200, c=sample(100, 1:100), d=rnorm(100))
 lapply(mylist, mean)
-sapply(mylist, mean)
+xyz<-sapply(mylist, mean)
 
 ## more complex example
 # let's make some fake data
@@ -155,6 +162,7 @@ sapply(newlist, FUN=function(x) mean(x[,2]))
 
 ## practical example...
 len.dat<-read.csv('StatsClass/lengthdata.csv')
+len.dat<-len.dat[len.dat$SPC!=380,]
 len.list<-split(len.dat, len.dat$SPC)
 sapply(len.list, FUN=function(x) mean(x$FLEN)) # note the use of the anonymous function
 lapply(len.list, FUN=function(x) hist(x$FLEN, main=x$SPC[1]))

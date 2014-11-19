@@ -429,11 +429,10 @@ system.time(cat(tapply(mydf$y, mydf$x, mean)))
   </hgroup>
   <article data-timings="">
     <ul>
-<li>lapply: Loop over a list and evaluate a function on each element, returns a list</li>
-<li>sapply: Same as lapply but try to simplify the result</li>
-<li>apply: Apply a function over the margins of an array</li>
-<li>tapply: Apply a function over subsets of a vector</li>
-<li>mapply: Multivariate version of lapply</li>
+<li><code>lapply</code>: Loop through items in a list, a function on each element, return a list</li>
+<li><code>sapply</code>: Same as lapply but will return a vector or dataframe if possible</li>
+<li><code>tapply</code>: applies a function to subsets within a vector</li>
+<li>See also <code>apply</code> and <code>mapply</code></li>
 </ul>
 
   </article>
@@ -467,6 +466,31 @@ sapply(mylist, mean)
 b.  interactive plots (googleVis)/animation<br>
 c.  reproducible documents (markdown, knitr, slidify)<br>
 d.  suggestions?  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Assignment</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Build a function that determines if or where a thermocline occurs within a temperature profile.  The output of the function should include a statement indicating that either a thermocline does not exist or give the depth of the thermocline.</p>
+
+<pre><code class="r">mytcline(temp1)
+</code></pre>
+
+<pre><code>## No thermocline detected
+</code></pre>
+
+<pre><code class="r">mytcline(temp2)
+</code></pre>
+
+<pre><code>## The thermocline is at 6m
+</code></pre>
+
+<h3>GOOD LUCK!</h3>
 
   </article>
   <!-- Presenter Notes -->
@@ -600,6 +624,12 @@ d.  suggestions?  </p>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=21 title='Questions?'>
          21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Assignment'>
+         22
       </a>
     </li>
   </ul>

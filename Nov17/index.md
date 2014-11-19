@@ -286,11 +286,10 @@ system.time(cat(tapply(mydf$y, mydf$x, mean)))
 
 ---
 ## Apply family
-* lapply: Loop over a list and evaluate a function on each element, returns a list
-* sapply: Same as lapply but try to simplify the result
-* apply: Apply a function over the margins of an array
-* tapply: Apply a function over subsets of a vector
-* mapply: Multivariate version of lapply
+* `lapply`: Loop through items in a list, a function on each element, return a list
+* `sapply`: Same as lapply but will return a vector or dataframe if possible
+* `tapply`: applies a function to subsets within a vector
+* See also `apply` and `mapply`
 
 ---
 ## lapply vs sapply
@@ -312,3 +311,25 @@ b.  interactive plots (googleVis)/animation
 c.  reproducible documents (markdown, knitr, slidify)  
 d.  suggestions?  
 
+---
+## Assignment
+Build a function that determines if or where a thermocline occurs within a temperature profile.  The output of the function should include a statement indicating that either a thermocline does not exist or give the depth of the thermocline.
+
+
+```r
+mytcline(temp1)
+```
+
+```
+## No thermocline detected
+```
+
+```r
+mytcline(temp2)
+```
+
+```
+## The thermocline is at 6m
+```
+
+### GOOD LUCK!
